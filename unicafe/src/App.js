@@ -7,6 +7,15 @@ const Button = (props) => (
 )
 
 const Statistics = (props) => {
+  if (props.all.length == 0) {
+    return (
+      <>
+      <h1>statistics</h1>
+      <p>No feedback given</p>
+      </>
+    )
+  }
+
   return (
     <>
     <h1>statistics</h1>
