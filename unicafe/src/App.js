@@ -6,24 +6,28 @@ const Button = (props) => (
   </button>
 )
 
-
 const App = () => {
 
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [all, setAll] = useState([])
+
+  const avgPositive = good / all.length * 100
+  const num1 = good - bad
+  const avgScore = num1 / all.length
 
   const handleClickGood = () => {
-    console.log("click Good")
     setGood(good + 1)
+    setAll(all + 1)
   }
   const handleClickNeutral = () => {
-    console.log("click Neutral")
     setNeutral(neutral + 1)
+    setAll(all + 1)
   }
   const handleClickBad = () => {
-    console.log("click Bad")
     setBad(bad + 1)
+    setAll(all + 1)
   }
 
 
@@ -37,6 +41,9 @@ const App = () => {
     <p>good {good} </p>
     <p>neutral {neutral} </p>
     <p>bad {bad} </p>
+    <p>all {all.length}</p>
+    <p>average {avgScore}</p>
+    <p>positive {avgPositive} %</p>
     </>
   )
 }
