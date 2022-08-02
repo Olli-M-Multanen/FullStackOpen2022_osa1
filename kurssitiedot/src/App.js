@@ -30,12 +30,29 @@ const Part = ({course}) => {
   )
 }
 
+const Total = ({course}) => {
+  const sumCourse = course.parts.map(course => {
+    return (
+      course.exercises
+    )
+  })
+  const [s1, s2, s3, s4] = sumCourse
+  const sumOf = [s1 + s2 + s3 + s4].reduce((a, b) => a + b, 0)
+
+  return (
+    <>
+    <p><b>total of exercises {sumOf}</b></p>
+    </>
+  )
+}
+
 const Course = ({course}) => {
 
   return (
     <>
     <Header course={course} />
     <Content course={course} />
+    <Total course={course} />
     </>
   )
 
@@ -59,6 +76,11 @@ const App = () => {
     {
       name: 'State of a component',
       exercises: 14,
+      id: 3
+    },
+    {
+      name: 'Redux',
+      exercises: 11,
       id: 3
     }
   ]
