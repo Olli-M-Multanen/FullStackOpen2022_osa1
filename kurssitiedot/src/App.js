@@ -31,17 +31,20 @@ const Part = ({course}) => {
 }
 
 const Total = ({course}) => {
-  const sumCourse = course.parts.map(course => {
-    return (
-      course.exercises
-    )
-  })
-  const [s1, s2, s3, s4] = sumCourse
-  const sumOf = [s1 + s2 + s3 + s4].reduce((a, b) => a + b, 0)
+
+  // To sum up the values contained in an array of objects,
+  // you must supply an initialValue, 
+  // so that each item passes through your function.
+
+  const arr = course.parts
+  const result = arr.reduce(
+    (previousValue, currentValue) =>
+    previousValue + currentValue.exercises, 0
+  )
 
   return (
     <>
-    <p><b>total of exercises {sumOf}</b></p>
+    <p><b>total of exercises {result}</b></p>
     </>
   )
 }
@@ -81,7 +84,7 @@ const App = () => {
     {
       name: 'Redux',
       exercises: 11,
-      id: 3
+      id: 4
     }
   ]
 }
