@@ -1,97 +1,119 @@
-const Header = ({course}) => {
-  return (
-    <>
-      <h1>
-        {course.name}
-      </h1>
-    </>
-  )
-  }
+const Total = (source) => {
+  const total = source.parts.reduce(
+    (prevValue, currentValue) => prevValue + currentValue.exercises, 0)
 
-const Content = ({course}) => {
-  return (
-    <>
-    <Part course={course} />
-    </>
-  )
+  return <p>
+    <b>total of {total} exercises</b>
+    </p>
 }
+
+
+// Render nested array using map()
 
 const Part = ({course}) => {
   return (
-      <>
-        {course.parts.map(course => {
-          return (
-            <p key={course.name}>
-              {course.name} {course.exercises}
-            </p>
-          )
-        })}
-      </>
-  )
-}
-
-const Total = ({course}) => {
-
-  // To sum up the values contained in an array of objects,
-  // you must supply an initialValue, 
-  // so that each item passes through your function.
-
-  const arr = course.parts
-  const result = arr.reduce(
-    (previousValue, currentValue) =>
-    previousValue + currentValue.exercises, 0
-  )
-
-  return (
+    // 1 - map courses ARRAY to variable "course"
+    //   - this gives access to "first level" of the Courses array.
+    //   - must specify div key
+    //     now you can access "parts" or "second level" of each objects
+    // 2 - map "parts" to variable "data"
+    //   - must again use div key
     <>
-    <p><b>total of exercises {result}</b></p>
+    {course.map((course) => {
+      return (
+        <div key={course.id}>
+          <h2>{course.name}</h2>
+
+          {course.parts.map((data) => {
+            return (
+              <div key={data.id}>
+                <p>{data.name} {data.exercises}</p>
+              </div>
+            )
+          }
+          )}
+          <Total parts={course.parts}/>
+        </div>
+      )
+    })}
     </>
   )
 }
 
-const Course = ({course}) => {
-
+const Content = ({ course }) => {
   return (
     <>
-    <Header course={course} />
+    <Part course = {course} />
+    </>
+  )
+}
+
+const Header = () => {
+  return (
+    <>
+    <h1>Web development curriculum</h1>
+    </>
+  )
+}
+
+const Course = ({ course }) => {
+  return (
+    <>
+    <Header />
     <Content course={course} />
-    <Total course={course} />
     </>
   )
-
   }
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    id: 1,
-    parts: [
+  const courses = [
     {
-      name: 'Fundamentals of React',
-      exercises: 10,
-      id: 1
-    },
+      name: 'Half Stack application development',
+      id: 1,
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
+    }, 
     {
-      name: 'Using props to pass data',
-      exercises: 7,
-      id: 2
-    },
-    {
-      name: 'State of a component',
-      exercises: 14,
-      id: 3
-    },
-    {
-      name: 'Redux',
-      exercises: 11,
-      id: 4
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          exercises: 7,
+          id: 2
+        }
+      ]
     }
   ]
-}
 
 return (
   <>
-    <Course course={course} />
+    <Course course={courses}/>
   </>
 )
 
